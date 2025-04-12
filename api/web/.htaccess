@@ -1,0 +1,12 @@
+RewriteEngine on
+
+# Установка базового URL для маршрутизации
+RewriteBase /api
+
+# Если файл или директория существуют, используем их напрямую
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Иначе перенаправляем запрос на обработку через index.php
+RewriteRule ^(.*)$ index.php [L] 

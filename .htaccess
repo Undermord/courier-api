@@ -1,0 +1,6 @@
+RewriteEngine on
+
+# Разрешаем все запросы к API
+# Иначе направляем все запросы в основную web-папку
+RewriteCond %{REQUEST_URI} !^/api
+RewriteRule ^(.*)$ /$1 [L] 

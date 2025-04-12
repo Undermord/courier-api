@@ -1,0 +1,60 @@
+<?php
+
+namespace api\tests\unit\controllers;
+
+use api\controllers\CourierController;
+use common\models\Courier;
+use Codeception\Test\Unit;
+use yii\web\NotFoundHttpException;
+
+class CourierControllerTest extends Unit
+{
+    protected $controller;
+
+    protected function _before()
+    {
+        $this->controller = new CourierController('courier', \Yii::$app);
+    }
+
+    public function testPrepareDataProvider()
+    {
+        // Тестирование без фильтров
+        $dataProvider = $this->controller->prepareDataProvider();
+        $this->assertInstanceOf('yii\data\ActiveDataProvider', $dataProvider);
+        
+        // Симуляция GET запроса с фильтром по роли
+        $_GET['role'] = 'main';
+        $dataProvider = $this->controller->prepareDataProvider();
+        $this->assertInstanceOf('yii\data\ActiveDataProvider', $dataProvider);
+        
+        // Проверка, что фильтр работает
+        $query = $dataProvider->query;
+        $models = $query->all();
+        
+        if (!empty($models)) {
+            foreach ($models as $model) {
+                $this->assertEquals('main', $model->role);
+            }
+        }
+        
+        // Сброс GET параметров
+        $_GET = [];
+    }
+
+    public function testAccessControl()
+    {
+        $behaviors = $this->controller->behaviors();
+        $this->assertArrayHasKey('access', $behaviors);
+        
+        $accessControl = $behaviors['access'];
+        $this->assertEquals('yii\filters\AccessControl', $accessControl['class']);
+        
+        $rules = $accessControl['rules'];
+        $this->assertNotEmpty($rules);
+        
+        $rule = $rules[0];
+        $this->assertTrue($rule['allow']);
+        $this->assertEquals(['@'], $rule['roles']);
+        $this->assertTrue(is_callable($rule['matchCallback']));
+    }
+} 
