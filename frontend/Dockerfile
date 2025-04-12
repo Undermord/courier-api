@@ -1,4 +1,23 @@
-FROM yiisoftware/yii2-php:8.1-apache
+FROM php:7.4-fpm
 
-# Change document root for Apache
-RUN sed -i -e 's|/app/web|/app/frontend/web|g' /etc/apache2/sites-available/000-default.conf
+# Устанавливаем зависимости
+RUN apt-get update && apt-get install -y \
+    git \
+    zip \
+    unzip \
+    libzip-dev \
+    libonig-dev \
+    libicu-dev
+
+# Устанавливаем расширения PHP
+RUN docker-php-ext-install \
+    pdo_mysql \
+    mbstring \
+    zip \
+    intl
+
+# Устанавливаем Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Устанавливаем рабочую директорию
+WORKDIR /app

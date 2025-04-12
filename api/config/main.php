@@ -18,8 +18,7 @@ return [
                 'application/json' => 'yii\web\JsonParser',
             ],
             'enableCookieValidation' => false,
-            'baseUrl' => '/api',
-            'scriptUrl' => '/api/index.php',
+            'baseUrl' => '',
         ],
         'response' => [
             'format' => yii\web\Response::FORMAT_JSON,

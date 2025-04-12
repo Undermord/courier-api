@@ -48,11 +48,11 @@ class SiteController extends Controller
             'version' => '1.0.0',
             'description' => 'API для управления курьерами, транспортными средствами и заявками',
             'endpoints' => [
-                '/api/courier' => 'Управление курьерами',
-                '/api/vehicle' => 'Управление транспортом',
-                '/api/request' => 'Управление заявками'
+                '/courier' => 'Управление курьерами',
+                '/vehicle' => 'Управление транспортом',
+                '/request' => 'Управление заявками'
             ],
-            'documentation' => '/api/swagger-ui.html'
+            'documentation' => '/swagger-ui.html'
         ];
     }
 } 

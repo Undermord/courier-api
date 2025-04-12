@@ -1,6 +1,6 @@
-RewriteEngine on
+# Этот файл не используется с Nginx и оставлен только для обратной совместимости.
+# Вся конфигурация маршрутизации определена в docker/nginx/default.conf
 
-# Разрешаем все запросы к API
-# Иначе направляем все запросы в основную web-папку
-RewriteCond %{REQUEST_URI} !^/api
-RewriteRule ^(.*)$ /$1 [L] 
+# RewriteEngine on
+# RewriteCond %{REQUEST_URI} !^/api
+# RewriteRule ^(.*)$ /$1 [L] 

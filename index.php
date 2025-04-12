@@ -1,4 +1,5 @@
 <?php
-header("Location: /api/");
+// Перенаправляем на правильный URL
+header('Location: /api/web/');
 exit;
 ?> 

@@ -1,12 +1,12 @@
-RewriteEngine on
+# Этот файл не используется с Nginx и оставлен только для обратной совместимости.
+# Вся конфигурация маршрутизации определена в docker/nginx/default.conf
 
-# Установка базового URL для маршрутизации
-RewriteBase /api
+# Включение mod_rewrite
+RewriteEngine On
 
-# Если файл или директория существуют, используем их напрямую
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]
-
-# Иначе перенаправляем запрос на обработку через index.php
-RewriteRule ^(.*)$ index.php [L] 
+# Если запрос не является файлом
+RewriteCond %{REQUEST_FILENAME} !-f
+# И не является директорией
+RewriteCond %{REQUEST_FILENAME} !-d
+# То перенаправить на index.php
+RewriteRule ^ index.php [L] 
