@@ -31,6 +31,8 @@ docker exec courier-api-php-1 php /app/init --env=Development --overwrite=All
 docker exec courier-api-php-1 composer install -d /app
 ```
 
+> **Примечание**: Конфигурация базы данных уже настроена для работы с Docker. Подключение настроено на хост `db`, с именем пользователя `yii` и паролем `yii`.
+
 4. Запустите миграции для создания таблиц в базе данных и заполнения демо-данными:
 ```bash
 docker exec courier-api-php-1 php /app/yii migrate/fresh --interactive=0
